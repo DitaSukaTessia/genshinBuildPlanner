@@ -1,0 +1,46 @@
+{
+  "uid": "618285856",
+  "ttl": 300,
+  "playerInfo": {
+    "nickname": "Traveler"
+  },
+  "avatarInfoList": [
+    {
+      "avatarId": 10000046,
+      "name": "Hu Tao",
+      "propMap": {
+        "4001": { "val": "90" }
+      },
+      "fightPropMap": {
+        "20": 0.65,
+        "22": 1.8,
+        "23": 1.1,
+        "28": 110,
+        "2001": 1240
+      },
+      "equipList": [
+        {
+          "itemId": 13501,
+          "flat": {
+            "itemType": "ITEM_WEAPON",
+            "name": "Staff of Homa"
+          }
+        },
+        {
+          "itemId": 71510,
+          "flat": {
+            "itemType": "ITEM_RELIQUARY",
+            "setName": "Crimson Witch"
+          }
+        },
+        {
+          "itemId": 71511,
+          "flat": {
+            "itemType": "ITEM_RELIQUARY",
+            "setName": "Crimson Witch"
+          }
+        }
+      ]
+    }
+  ]
+}
