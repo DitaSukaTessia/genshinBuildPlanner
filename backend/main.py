@@ -5,9 +5,9 @@ from routes.characters import router as character_router
 from routes.uid import router as uid_router
 
 app = FastAPI(
-    title="Genshin Build Planner API",
-    description="Starter API for serving character build recommendations and UID analysis.",
-    version="0.2.0",
+    title="Genshin Account Analyzer API",
+    description="API for starter build recommendations and cleaned Enka-based account analysis.",
+    version="0.3.0",
 )
 
 app.add_middleware(
@@ -24,4 +24,4 @@ app.include_router(uid_router)
 
 @app.get("/")
 def healthcheck() -> dict[str, str]:
-    return {"status": "ok", "message": "Genshin Build Planner API is running."}
+    return {"status": "ok", "message": "Genshin Account Analyzer API is running."}

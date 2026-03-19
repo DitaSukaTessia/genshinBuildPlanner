@@ -3,16 +3,17 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
-from services.build_scoring import score_build
+from services.mapper import resolve_character_image, resolve_character_name, resolve_display_name
+from services.scorer import score_build
 
 FIGHT_PROP_MAP = {
     "20": "crit_rate",
     "22": "crit_dmg",
     "23": "energy_recharge",
     "28": "elemental_mastery",
+    "2000": "hp",
     "2001": "atk",
     "2002": "def",
-    "2000": "hp",
 }
 
 
@@ -23,95 +24,40 @@ def _to_float(value: Any, default: float = 0.0) -> float:
         return default
 
 
+# Enka percentage-like stats are commonly represented as decimals such as 0.65 or 1.8.
 def _parse_percent_stat(value: Any) -> float:
     raw_value = _to_float(value)
-    if raw_value <= 10:
-        return round(raw_value * 100, 2)
-    return round(raw_value, 2)
+    return round(raw_value * 100, 2) if raw_value <= 10 else round(raw_value, 2)
 
 
 def _parse_level(avatar: dict[str, Any]) -> int:
-    prop_map = avatar.get("propMap", {})
-    level_info = prop_map.get("4001", {})
+    level_info = avatar.get("propMap", {}).get("4001", {})
     return int(_to_float(level_info.get("val"), 0))
-
-
-def _best_name(source: dict[str, Any], fallback: str) -> str:
-    if not isinstance(source, dict):
-        return fallback
-
-    direct_candidates = [
-        source.get("name"),
-        source.get("itemName"),
-        source.get("avatarName"),
-        source.get("setName"),
-        source.get("weaponName"),
-        source.get("displayName"),
-    ]
-    flat = source.get("flat", {}) if isinstance(source.get("flat"), dict) else {}
-    flat_candidates = [
-        flat.get("name"),
-        flat.get("title"),
-        flat.get("itemName"),
-        flat.get("setName"),
-        flat.get("artifactSetName"),
-        flat.get("weaponName"),
-    ]
-
-    for candidate in [*direct_candidates, *flat_candidates]:
-        if isinstance(candidate, str) and candidate.strip() and not candidate.strip().isdigit():
-            return candidate.strip()
-
-    return fallback
 
 
 def _extract_weapon(equip_list: list[dict[str, Any]]) -> str:
     for equip in equip_list:
         flat = equip.get("flat", {})
         if flat.get("itemType") == "ITEM_WEAPON":
-            item_id = equip.get("itemId") or flat.get("id") or "Unknown"
-            return _best_name(equip, f"Weapon {item_id}")
+            return resolve_display_name(equip) or f"Weapon {equip.get('itemId', 'Unknown')}"
     return "Unknown weapon"
 
 
 def _extract_artifact_sets(equip_list: list[dict[str, Any]]) -> list[str]:
-    artifact_names: list[str] = []
+    artifact_sets: list[str] = []
     for equip in equip_list:
         flat = equip.get("flat", {})
         if flat.get("itemType") != "ITEM_RELIQUARY":
             continue
+        artifact_sets.append(resolve_display_name(equip) or f"Set {equip.get('itemId', 'Unknown')}")
 
-        set_candidates = [
-            flat.get("setName"),
-            flat.get("artifactSetName"),
-            flat.get("reliquarySetName"),
-            equip.get("setName"),
-        ]
-        set_name = next(
-            (
-                candidate.strip()
-                for candidate in set_candidates
-                if isinstance(candidate, str) and candidate.strip() and not candidate.strip().isdigit()
-            ),
-            None,
-        )
-
-        if set_name is None:
-            set_id = flat.get("setId") or equip.get("setId") or equip.get("itemId") or "Unknown"
-            set_name = f"Set {set_id}"
-
-        artifact_names.append(set_name)
-
-    if not artifact_names:
-        return []
-
-    counts = Counter(artifact_names)
+    counts = Counter(artifact_sets)
     return [name for name, _count in counts.most_common()]
 
 
 def _extract_stats(avatar: dict[str, Any]) -> dict[str, float]:
-    fight_prop_map = avatar.get("fightPropMap", {})
     stats: dict[str, float] = {}
+    fight_prop_map = avatar.get("fightPropMap", {})
 
     for fight_prop_id, output_name in FIGHT_PROP_MAP.items():
         raw_value = fight_prop_map.get(fight_prop_id)
@@ -127,11 +73,11 @@ def _extract_stats(avatar: dict[str, Any]) -> dict[str, float]:
 
 
 def parse_avatar(avatar: dict[str, Any]) -> dict[str, Any]:
+    avatar_id = avatar.get("avatarId")
     equip_list = avatar.get("equipList", [])
-    character_id = avatar.get("avatarId") or "Unknown"
-
     parsed = {
-        "name": _best_name(avatar, f"Character {character_id}"),
+        "name": resolve_character_name(avatar_id) or f"Character {avatar_id}",
+        "image": resolve_character_image(avatar_id),
         "level": _parse_level(avatar),
         "weapon": _extract_weapon(equip_list),
         "artifact_sets": _extract_artifact_sets(equip_list),
@@ -142,12 +88,17 @@ def parse_avatar(avatar: dict[str, Any]) -> dict[str, Any]:
 
 
 def parse_showcase(raw_data: dict[str, Any], uid: str) -> dict[str, Any]:
-    avatars = raw_data.get("avatarInfoList") or []
-    parsed_characters = [parse_avatar(avatar) for avatar in avatars]
+    player_info = raw_data.get("playerInfo", {})
+    characters = [parse_avatar(avatar) for avatar in raw_data.get("avatarInfoList", [])]
 
     return {
         "uid": uid,
         "ttl": raw_data.get("ttl"),
-        "player": raw_data.get("playerInfo", {}),
-        "characters": parsed_characters,
+        "player": {
+            "nickname": player_info.get("nickname"),
+            "signature": player_info.get("signature"),
+            "level": player_info.get("level"),
+            "world_level": player_info.get("worldLevel"),
+        },
+        "characters": characters,
     }
