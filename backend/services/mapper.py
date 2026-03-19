@@ -59,6 +59,14 @@ def resolve_character_name(avatar_id: int | str, locale: str = "en") -> str | No
 
 
 @lru_cache(maxsize=256)
+def resolve_character_skill_order(avatar_id: int | str) -> list[int]:
+    character = get_character_entry(avatar_id)
+    if not character:
+        return []
+    return [int(skill_id) for skill_id in character.get("SkillOrder", [])]
+
+
+@lru_cache(maxsize=256)
 def resolve_character_image(avatar_id: int | str) -> str:
     internal_name = resolve_character_internal_name(avatar_id)
     if not internal_name:
