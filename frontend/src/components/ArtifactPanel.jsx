@@ -57,34 +57,34 @@ export function ArtifactPanel({ artifacts, artifactSets, artifactCount }) {
 
   return (
     <>
-      <section className="rounded-[2rem] border border-white/10 bg-lunar/80 p-5 shadow-glow backdrop-blur">
+      <section className="rounded-[2rem] border border-white/10 bg-[#171b2d]/90 p-5 shadow-glow backdrop-blur">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Artifacts</p>
+            <p className="text-[11px] uppercase tracking-[0.24em] text-[#b9bed6]/55">Artifacts</p>
             <p className="mt-2 text-sm text-slate-400">Click a slot to inspect details.</p>
           </div>
-          <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300">
+          <div className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-slate-300">
             {artifactCount ?? artifacts.length} equipped
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-3">
+        <div className="mt-5 flex flex-wrap justify-between gap-3">
           {artifacts.map((artifact) => (
             <button
-              className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-3 transition hover:border-white/20 hover:bg-white/10"
+              className="flex flex-col items-center gap-3 rounded-[1.75rem] border border-white/8 bg-white/[0.04] p-3 transition hover:border-white/20 hover:bg-white/[0.08]"
               key={`${artifact.slot}-${artifact.name}`}
               onClick={() => setSelectedArtifactName(artifact.name)}
               type="button"
             >
               <img
                 alt={artifact.slot}
-                className="h-16 w-16 rounded-full border border-white/10 object-cover"
+                className="h-20 w-20 rounded-full border border-white/10 object-cover"
                 onError={(event) => {
                   event.currentTarget.src = 'https://placehold.co/128x128/090B13/F8FAFC?text=Artifact';
                 }}
                 src={artifact.image}
               />
-              <span className="text-xs text-slate-300">{artifact.slot}</span>
+              <span className="text-xs uppercase tracking-[0.15em] text-slate-300">{artifact.slot}</span>
             </button>
           ))}
         </div>
@@ -92,7 +92,7 @@ export function ArtifactPanel({ artifacts, artifactSets, artifactCount }) {
         <div className="mt-5 flex flex-wrap gap-3">
           {artifactSets.length ? (
             artifactSets.map((setInfo) => (
-              <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3" key={setInfo.name}>
+              <div className="rounded-2xl border border-white/8 bg-white/[0.04] px-4 py-3" key={setInfo.name}>
                 <p className="text-sm font-semibold text-white">{setInfo.name}</p>
                 <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">{setInfo.count}-piece</p>
               </div>
