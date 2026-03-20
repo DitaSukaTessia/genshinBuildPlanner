@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Hu Tao",
+    "weapon": "Staff of Homa",
+    "artifact": "Crimson Witch of Flames",
+    "main_stats": ["HP% Sands", "Pyro DMG Goblet", "CRIT Circlet"]
+  },
+  {
+    "name": "Raiden Shogun",
+    "weapon": "Engulfing Lightning",
+    "artifact": "Emblem of Severed Fate",
+    "main_stats": ["Energy Recharge Sands", "Electro DMG Goblet", "CRIT Circlet"]
+  },
+  {
+    "name": "Nahida",
+    "weapon": "A Thousand Floating Dreams",
+    "artifact": "Deepwood Memories",
+    "main_stats": ["Elemental Mastery Sands", "Dendro DMG Goblet", "CRIT Circlet"]
+  }
+]
