@@ -2,7 +2,7 @@ import { ScoreBadge } from './ScoreBadge';
 
 export function ScoreBox({ score, analysis }) {
   return (
-    <section className="rounded-[1.8rem] border border-white/8 bg-white/[0.04] p-5">
+    <section className="rounded-[1.5rem] border border-white/[0.06] bg-white/[0.04] p-4">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-[11px] uppercase tracking-[0.24em] text-[#b9bed6]/55">Score</p>
