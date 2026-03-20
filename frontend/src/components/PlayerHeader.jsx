@@ -19,7 +19,7 @@ export function PlayerHeader({ player }) {
             <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Player Profile</p>
             <h2 className="mt-2 text-2xl font-semibold text-white">{player.nickname ?? 'Unknown Traveler'}</h2>
             <p className="mt-1 text-sm text-slate-300">UID {player.uid}</p>
-            {player.signature ? <p className="mt-2 text-sm text-slate-400">{player.signature}</p> : null}
+            {player.signature ? <p className="mt-2 max-w-xl text-sm text-slate-400">{player.signature}</p> : null}
           </div>
         </div>
 

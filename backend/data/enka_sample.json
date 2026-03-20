@@ -38,11 +38,15 @@
         {
           "itemId": 13501,
           "weapon": {
-            "level": 90
+            "level": 90,
+            "affixMap": {
+              "1": 4
+            }
           },
           "flat": {
             "itemType": "ITEM_WEAPON",
             "nameTextMapHash": 3235324891,
+            "icon": "/ui/UI_EquipIcon_Pole_Homa.png",
             "weaponStats": [
               {
                 "appendPropId": "FIGHT_PROP_BASE_ATTACK",
@@ -57,37 +61,107 @@
         },
         {
           "itemId": 71510,
+          "reliquary": {
+            "level": 20
+          },
           "flat": {
             "itemType": "ITEM_RELIQUARY",
-            "setNameTextMapHash": 1524173875
+            "setNameTextMapHash": 1524173875,
+            "nameTextMapHash": 3440222495,
+            "icon": "/ui/UI_RelicIcon_15006_4.png",
+            "equipType": "EQUIP_BRACER",
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_HP",
+              "statValue": 4780
+            },
+            "reliquarySubstats": [
+              {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 0.074},
+              {"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 0.148}
+            ]
           }
         },
         {
           "itemId": 71511,
+          "reliquary": {
+            "level": 20
+          },
           "flat": {
             "itemType": "ITEM_RELIQUARY",
-            "setNameTextMapHash": 1524173875
+            "setNameTextMapHash": 1524173875,
+            "nameTextMapHash": 2782531049,
+            "icon": "/ui/UI_RelicIcon_15006_2.png",
+            "equipType": "EQUIP_NECKLACE",
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_ATTACK",
+              "statValue": 311
+            },
+            "reliquarySubstats": [
+              {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 0.078},
+              {"appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 0.105}
+            ]
           }
         },
         {
           "itemId": 71512,
+          "reliquary": {
+            "level": 20
+          },
           "flat": {
             "itemType": "ITEM_RELIQUARY",
-            "setNameTextMapHash": 1524173875
+            "setNameTextMapHash": 1524173875,
+            "nameTextMapHash": 3384775755,
+            "icon": "/ui/UI_RelicIcon_15006_5.png",
+            "equipType": "EQUIP_SHOES",
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_HP_PERCENT",
+              "statValue": 0.466
+            },
+            "reliquarySubstats": [
+              {"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 0.202},
+              {"appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 0.058}
+            ]
           }
         },
         {
           "itemId": 71513,
+          "reliquary": {
+            "level": 20
+          },
           "flat": {
             "itemType": "ITEM_RELIQUARY",
-            "setNameTextMapHash": 1524173875
+            "setNameTextMapHash": 1524173875,
+            "nameTextMapHash": 2606158683,
+            "icon": "/ui/UI_RelicIcon_15006_1.png",
+            "equipType": "EQUIP_RING",
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_FIRE_ADD_HURT",
+              "statValue": 0.466
+            },
+            "reliquarySubstats": [
+              {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 0.101},
+              {"appendPropId": "FIGHT_PROP_HP_PERCENT", "statValue": 0.099}
+            ]
           }
         },
         {
           "itemId": 71514,
+          "reliquary": {
+            "level": 20
+          },
           "flat": {
             "itemType": "ITEM_RELIQUARY",
-            "setNameTextMapHash": 1524173875
+            "setNameTextMapHash": 1524173875,
+            "nameTextMapHash": 54857595,
+            "icon": "/ui/UI_RelicIcon_15006_3.png",
+            "equipType": "EQUIP_DRESS",
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_CRITICAL",
+              "statValue": 0.311
+            },
+            "reliquarySubstats": [
+              {"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 0.225},
+              {"appendPropId": "FIGHT_PROP_HP_PERCENT", "statValue": 0.093}
+            ]
           }
         }
       ]

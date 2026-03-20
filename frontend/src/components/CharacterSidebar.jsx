@@ -11,7 +11,7 @@ export function CharacterSidebar({ characters, selectedCharacterName, onSelect }
         </span>
       </div>
 
-      <div className="max-h-[680px] space-y-3 overflow-y-auto pr-1">
+      <div className="max-h-[760px] space-y-3 overflow-y-auto pr-1">
         {characters.map((character) => {
           const isActive = character.name === selectedCharacterName;
           return (
