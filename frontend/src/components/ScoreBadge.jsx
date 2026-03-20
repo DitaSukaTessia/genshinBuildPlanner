@@ -7,7 +7,7 @@ export function ScoreBadge({ score }) {
         : 'border-rose-400/35 bg-rose-500/10 text-rose-200';
 
   return (
-    <span className={`inline-flex rounded-full border px-3 py-2 text-sm font-semibold ${tone}`}>
+    <span className={`inline-flex rounded-full border px-3 py-2 text-sm font-semibold whitespace-nowrap ${tone}`}>
       Score {score}/100
     </span>
   );

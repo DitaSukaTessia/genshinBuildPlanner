@@ -1,25 +1,25 @@
 export function CharacterSidebar({ characters, selectedCharacterName, onSelect }) {
   return (
-    <aside className="rounded-[2rem] border border-white/10 bg-lunar/80 p-4 shadow-glow backdrop-blur">
+    <aside className="rounded-[2.2rem] border border-white/10 bg-[#171b2d]/90 p-4 shadow-glow backdrop-blur">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Characters</p>
+          <p className="text-[11px] uppercase tracking-[0.24em] text-[#b9bed6]/55">Characters</p>
           <h3 className="mt-2 text-xl font-semibold text-white">Focus one build</h3>
         </div>
-        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+        <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-300">
           {characters.length}
         </span>
       </div>
 
-      <div className="max-h-[760px] space-y-3 overflow-y-auto pr-1">
+      <div className="max-h-[960px] space-y-3 overflow-y-auto pr-1">
         {characters.map((character) => {
           const isActive = character.name === selectedCharacterName;
           return (
             <button
-              className={`flex w-full items-center gap-3 rounded-2xl border px-3 py-3 text-left transition ${
+              className={`flex w-full items-center gap-3 rounded-[1.5rem] border px-3 py-3 text-left transition ${
                 isActive
-                  ? 'border-star/50 bg-star/10 shadow-glow'
-                  : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
+                  ? 'border-star/50 bg-[#232a44] shadow-glow'
+                  : 'border-white/8 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.08]'
               }`}
               key={`${character.name}-${character.level}`}
               onClick={() => onSelect(character.name)}

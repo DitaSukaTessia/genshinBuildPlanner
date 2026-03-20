@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -49,10 +50,52 @@ def get_character_entry(avatar_id: int | str) -> dict[str, Any] | None:
 def _normalise_asset_path(asset_path: str | None) -> str | None:
     if not asset_path:
         return None
-    cleaned = asset_path.removeprefix("/")
+
+    cleaned = str(asset_path).strip()
+    if not cleaned:
+        return None
     if cleaned.startswith("http"):
         return cleaned
+
+    cleaned = cleaned.removeprefix("/")
+
+    if cleaned.startswith("ui/"):
+        filename = cleaned.removeprefix("ui/")
+        if "." not in Path(filename).name:
+            filename = f"{filename}.png"
+        return f"{IMAGE_BASE_URL}/{filename}"
+
+    if "/" not in cleaned and cleaned.startswith("UI_"):
+        filename = cleaned if "." in cleaned else f"{cleaned}.png"
+        return f"{IMAGE_BASE_URL}/{filename}"
+
     return f"{ASSET_BASE_URL}/{cleaned}"
+
+
+def _extract_internal_name(asset_name: str | None, prefixes: tuple[str, ...]) -> str | None:
+    if not asset_name:
+        return None
+
+    cleaned_name = str(asset_name).split("/")[-1].replace(".png", "")
+    for prefix in prefixes:
+        if cleaned_name.startswith(prefix):
+            return cleaned_name.removeprefix(prefix)
+    return None
+
+
+def _humanise_internal_name(internal_name: str | None) -> str | None:
+    if not internal_name:
+        return None
+
+    special_names = {
+        "PlayerBoy": "Traveler (Aether)",
+        "PlayerGirl": "Traveler (Lumine)",
+    }
+    if internal_name in special_names:
+        return special_names[internal_name]
+
+    words = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", internal_name.replace("_", " ")).strip()
+    return words or None
 
 
 @lru_cache(maxsize=512)
@@ -61,12 +104,10 @@ def resolve_character_internal_name(avatar_id: int | str) -> str | None:
     if not character:
         return None
 
-    side_icon_name = character.get("SideIconName") or ""
-    cleaned_name = side_icon_name.split("/")[-1].replace(".png", "")
-    prefix = "UI_AvatarIcon_Side_"
-    if cleaned_name.startswith(prefix):
-        return cleaned_name.removeprefix(prefix)
-    return None
+    return _extract_internal_name(
+        character.get("SideIconName") or character.get("IconName") or character.get("iconName"),
+        ("UI_AvatarIcon_Side_", "UI_AvatarIcon_"),
+    )
 
 
 @lru_cache(maxsize=512)
@@ -74,7 +115,8 @@ def resolve_character_name(avatar_id: int | str, locale: str = "en") -> str | No
     character = get_character_entry(avatar_id)
     if not character:
         return None
-    return resolve_text_map_hash(character.get("NameTextMapHash"), locale)
+    resolved_name = resolve_text_map_hash(character.get("NameTextMapHash"), locale)
+    return resolved_name or _humanise_internal_name(resolve_character_internal_name(avatar_id))
 
 
 @lru_cache(maxsize=512)
@@ -122,6 +164,12 @@ def resolve_character_image(avatar_id: int | str, costume_id: int | str | None =
             resolved_costume = _normalise_asset_path(icon_path)
             if resolved_costume:
                 return resolved_costume
+
+    resolved_icon = _normalise_asset_path(
+        character.get("IconName") or character.get("iconName") or character.get("AvatarIconName")
+    )
+    if resolved_icon:
+        return resolved_icon
 
     internal_name = resolve_character_internal_name(avatar_id)
     if not internal_name:

@@ -1,17 +1,17 @@
 function StatCell({ label, value }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-      <p className="text-[11px] uppercase tracking-[0.18em] text-slate-500">{label}</p>
-      <p className="mt-1 text-base font-semibold text-white">{value ?? '—'}</p>
+    <div className="rounded-[1.4rem] border border-white/8 bg-white/[0.04] px-4 py-4">
+      <p className="text-[11px] uppercase tracking-[0.22em] text-[#b9bed6]/55">{label}</p>
+      <p className="mt-2 text-[1.55rem] font-semibold tracking-tight text-white">{value ?? '—'}</p>
     </div>
   );
 }
 
 export function StatsGrid({ stats }) {
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-lunar/80 p-5 shadow-glow backdrop-blur">
-      <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Stats</p>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <section className="rounded-[2rem] border border-white/10 bg-[#171b2d]/90 p-5 shadow-glow backdrop-blur">
+      <p className="text-[11px] uppercase tracking-[0.24em] text-[#b9bed6]/55">Stats</p>
+      <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         <StatCell label="HP" value={stats.hp} />
         <StatCell label="ATK" value={stats.atk} />
         <StatCell label="DEF" value={stats.def} />

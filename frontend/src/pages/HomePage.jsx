@@ -57,18 +57,18 @@ export function HomePage() {
 
   return (
     <main className="min-h-screen bg-abyss bg-radial-celestial text-white">
-      <div className="mx-auto max-w-[1600px] px-6 py-10">
-        <header className="mb-8 space-y-4">
+      <div className="mx-auto max-w-[1500px] px-5 py-8 xl:px-8">
+        <header className="mb-6 space-y-4">
           <div className="inline-flex rounded-full border border-star/30 bg-star/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-star">
             Genshin Account Analyzer
           </div>
           <div className="space-y-3">
             <h1 className="max-w-5xl text-4xl font-semibold leading-tight md:text-5xl">
-              Analyze one character at a time with a richer account-focused layout.
+              Match the showcase layout with a focused character dashboard.
             </h1>
             <p className="max-w-4xl text-base text-slate-300 md:text-lg">
-              Load a public UID, inspect the player profile header, pick a character from the sidebar, then explore
-              constellations, talents, weapon details, artifacts, and build score in one focused panel.
+              Pick a character from the sidebar, inspect numbered constellations with lock states, then review talents,
+              weapon detail popovers, stats, and artifact slots in the same layout style as the provided design.
             </p>
           </div>
         </header>
