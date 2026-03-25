@@ -68,23 +68,23 @@ export function ArtifactPanel({ artifacts, artifactSets, artifactCount }) {
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap justify-between gap-3">
+        <div className="mt-4 grid grid-cols-3 gap-2.5 sm:flex sm:flex-wrap sm:justify-between sm:gap-3">
           {artifacts.map((artifact) => (
             <button
-              className="flex flex-col items-center gap-2.5 rounded-[1.6rem] border border-white/[0.06] bg-white/[0.04] p-2.5 transition hover:border-white/15 hover:bg-white/[0.08]"
+              className="flex flex-col items-center gap-2 rounded-[1.4rem] border border-white/[0.06] bg-white/[0.04] p-2 transition hover:border-white/15 hover:bg-white/[0.08] sm:gap-2.5 sm:rounded-[1.6rem] sm:p-2.5"
               key={`${artifact.slot}-${artifact.name}`}
               onClick={() => setSelectedArtifactName(artifact.name)}
               type="button"
             >
               <img
                 alt={artifact.slot}
-                className="h-16 w-16 rounded-full border border-white/[0.06] object-cover sm:h-[72px] sm:w-[72px]"
+                className="h-14 w-14 rounded-full border border-white/[0.06] object-cover sm:h-[72px] sm:w-[72px]"
                 onError={(event) => {
                   event.currentTarget.src = 'https://placehold.co/128x128/090B13/F8FAFC?text=Artifact';
                 }}
                 src={artifact.image}
               />
-              <span className="text-xs uppercase tracking-[0.15em] text-slate-300">{artifact.slot}</span>
+              <span className="text-[10px] uppercase tracking-[0.13em] text-slate-300 sm:text-xs sm:tracking-[0.15em]">{artifact.slot}</span>
             </button>
           ))}
         </div>

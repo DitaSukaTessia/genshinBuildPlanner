@@ -11,7 +11,7 @@ export function StatsGrid({ stats }) {
   return (
     <section className="rounded-[1.8rem] border border-white/[0.06] bg-[#171b2d]/90 p-4 shadow-glow backdrop-blur">
       <p className="text-[11px] uppercase tracking-[0.24em] text-[#b9bed6]/55">Stats</p>
-      <div className="mt-4 grid gap-2.5 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-3 grid gap-2 sm:mt-4 sm:gap-2.5 md:grid-cols-2 xl:grid-cols-4">
         <StatCell label="HP" value={stats.hp} />
         <StatCell label="ATK" value={stats.atk} />
         <StatCell label="DEF" value={stats.def} />

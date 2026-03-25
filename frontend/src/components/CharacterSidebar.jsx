@@ -1,17 +1,17 @@
 export function CharacterSidebar({ characters, selectedCharacterName, onSelect }) {
   return (
-    <aside className="rounded-[2rem] border border-white/[0.06] bg-[#171b2d]/90 p-3.5 shadow-glow backdrop-blur">
+    <aside className="rounded-[1.6rem] border border-white/[0.06] bg-[#171b2d]/90 p-3 shadow-glow backdrop-blur sm:rounded-[2rem] sm:p-3.5">
       <div className="mb-3 flex items-center justify-between">
         <div>
           <p className="text-[11px] uppercase tracking-[0.24em] text-[#b9bed6]/55">Characters</p>
-          <h3 className="mt-2 text-xl font-semibold text-white">Focus one build</h3>
+          <h3 className="mt-1.5 text-lg font-semibold text-white sm:mt-2 sm:text-xl">Focus one build</h3>
         </div>
         <span className="rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-xs text-slate-300">
           {characters.length}
         </span>
       </div>
 
-      <div className="max-h-[720px] space-y-2.5 overflow-y-auto pr-1">
+      <div className="max-h-[360px] space-y-2 overflow-y-auto pr-1 sm:max-h-[720px] sm:space-y-2.5">
         {characters.map((character) => {
           const isActive = character.name === selectedCharacterName;
           return (

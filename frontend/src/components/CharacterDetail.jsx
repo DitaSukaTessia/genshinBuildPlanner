@@ -10,9 +10,9 @@ export function CharacterDetail({ character }) {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
       <CharacterFocus character={character} />
-      <div className="grid gap-5 xl:grid-cols-2">
+      <div className="grid gap-4 sm:gap-5 xl:grid-cols-2">
         <WeaponCard weapon={character.weapon} />
         <TalentPanel talents={character.talents} />
       </div>
